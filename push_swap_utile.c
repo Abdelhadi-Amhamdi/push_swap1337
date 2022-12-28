@@ -1,112 +1,99 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap_utile.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/26 10:21:32 by aamhamdi          #+#    #+#             */
+/*   Updated: 2022/12/26 16:37:24 by aamhamdi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "stack/includes/stack.h"
 
-void sa(m_stack *a)
+#include "push_swap.h"
+
+t_list *creat_node(int  data)
 {
-    int tmp;
-    if (a->top == -1)
-        return;
-    tmp = a->data[a->top];
-    a->data[a->top] = a->data[a->top-1];
-    a->data[a->top-1] = tmp;
+	t_list *node;
+
+	if(!(node = malloc(sizeof(t_list))))
+		return NULL;
+	node->list_data = data;
+	node->next = NULL;
+	node->prev = NULL;
+
+	return node;
 }
 
-void sb(m_stack *b)
+void insert_node(t_list **list, t_list *node)
 {
-    int tmp;
-    if (b->top == -1)
-        return;
-    tmp = b->data[b->top];
-    b->data[b->top] = b->data[b->top-1];
-    b->data[b->top-1] = tmp;
+	(*list)->prev = node;
+	node->next = *list;
+	*list = node;
 }
 
-void ss(m_stack *b , m_stack *a)
+void fill_stack(int argc, char **argv, t_stack *stack)
 {
-    sa(a);
-    sb(b);
+	int index = 0;
+	t_list *my_list;
+	
+	while(index < argc-1)
+	{
+		if(!my_list)
+			my_list = creat_node(atoi(argv[index]));
+		else
+		{
+			t_list *node;
+			node = creat_node(atoi(argv[index]));
+			insert_node(&my_list, node);
+		}
+		index++;
+	}
+	stack->stack_data = my_list;
+	stack->top = my_list;
+	stack->size = (argc -1);
 }
 
-void pa(m_stack *b , m_stack *a)
+void print_list(t_list *list)
 {
-    if(is_empty(b))
-        return;
-    push(a, b->data[b->top]);
+	t_list *tmp;
+	tmp = list;
+	while(tmp)
+	{
+		printf("%d\n",tmp->list_data);
+		tmp = tmp->next;
+	}
+}
+int init_stack(int argc, char **argv, t_stack *a_stack, t_stack *b_stack)
+{
+	a_stack = NULL;
+	b_stack = NULL;
+	
+	if(!(a_stack = malloc(sizeof(t_stack))))
+		write(2, "Error\n", 6);
+	a_stack->stack_data = NULL;
+	a_stack->top = NULL;
+	a_stack->size = 0;
+	if(!(b_stack = malloc(sizeof(t_stack))))
+	{
+		free(a_stack);
+		write(2, "Error\n", 6);
+	}
+	b_stack->stack_data = NULL;
+	b_stack->top = NULL;
+	b_stack->size = 0;
+	fill_stack(argc, argv, a_stack); 
+	print_list(a_stack->stack_data);
+	return 1;
 }
 
-void pb(m_stack *b , m_stack *a)
+int main()
 {
-    if(is_empty(a))
-        return;
-    push(b, a->data[a->top]);
-}
-
-void ra(m_stack *a)
-{
-    int index1 = a->top;
-    while (index1)
-    {
-        int tmp;
-        int index2 = index1 - 1;
-        tmp = a->data[index1];
-        a->data[index1] = a->data[index2];
-        a->data[index2] = tmp;
-        index1 = index2;
-    }
-}
-
-void rb(m_stack *b)
-{
-    int index1 = b->top;
-    while (index1)
-    {
-        int tmp;
-        int index2 = index1 - 1;
-        tmp = b->data[index1];
-        b->data[index1] = b->data[index2];
-        b->data[index2] = tmp;
-        index1 = index2;
-    }
-}
-
-void rr(m_stack *a, m_stack *b)
-{
-    ra(a);
-    rb(b);
-}
-
-void rra(m_stack *a)
-{
-    int index1 = 0;
-    int top = a->top;
-    while (index1 < top)
-    {
-        int tmp;
-        int index2 = index1 + 1;
-        tmp = a->data[index1];
-        a->data[index1] = a->data[index2];
-        a->data[index2] = tmp;
-        index1 = index2;
-    }
-}
-
-void rrb(m_stack *b)
-{
-    int index1 = 0;
-    int top = b->top;
-    while (index1 < top)
-    {
-        int tmp;
-        int index2 = index1 + 1;
-        tmp = b->data[index1];
-        b->data[index1] = b->data[index2];
-        b->data[index2] = tmp;
-        index1 = index2;
-    }
-}
-
-void rrr(m_stack *a, m_stack *b)
-{
-    rra(a);
-    rrb(b);
+	t_stack *a;
+	t_stack *b;
+	int ac = 7;
+	char *av[7] = {"abc" , "1", "2", "5", "7", "3", "9"};
+	init_stack(ac, av+1, a, b);
+	// 	print_list(b->stack_data);
 }
