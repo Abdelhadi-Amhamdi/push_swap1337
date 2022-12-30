@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:21:28 by aamhamdi          #+#    #+#             */
-/*   Updated: 2022/12/26 16:14:20 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2022/12/30 17:59:22 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void push(t_stack *stack, int data)
 	t_list *my_list;
 
 	my_list = stack->stack_data;
-	node = creat_node(data);
+	node = creat_node(data, stack->size);
 	if(!my_list)
 		my_list = node;
 	else
@@ -99,6 +99,7 @@ void reverse_rotate_stack(t_stack *stack)
 	last->prev->next = NULL;
 	stack->stack_data = last;
 	last->next = stack->top;
+	stack->top = last;
 }
 
 void reverse_rotate_both_stacks(t_stack *a, t_stack *b)
