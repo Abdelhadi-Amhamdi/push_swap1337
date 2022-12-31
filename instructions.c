@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_functions.c                                  :+:      :+:    :+:   */
+/*   instructions.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:21:28 by aamhamdi          #+#    #+#             */
-/*   Updated: 2022/12/31 08:49:21 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2022/12/31 19:53:44 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void push(t_stack *stack, int data)
 	else
 		insert_node(&my_list, node);
 	stack->top = node;
-	stack->size++;
 	stack->stack_data = my_list;
 }
 
@@ -41,6 +40,8 @@ void pop(t_stack *stack)
 
 	free(stack->top);
 	stack->top = tmp;
+	if(tmp)
+		tmp->prev = NULL;
 	stack->stack_data = tmp;
 }
 
@@ -64,6 +65,8 @@ void swap_both_stacks(t_stack *b , t_stack *a)
 void push_in_stack(t_stack *from , t_stack *to)
 {
 	push(to, from->stack_data->list_data);
+	from->size--;
+	to->size++;
 	pop(from);
 }
 
@@ -80,7 +83,7 @@ void rotate_stack(t_stack *stack)
 	t_list *last;
 	
 	stack->stack_data = stack->top->next;
-	stack->top->next = 0;
+	stack->top->next = NULL;
 	last = get_last_node(stack->stack_data);
 	last->next = stack->top;
 	stack->top = stack->stack_data;
