@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:21:28 by aamhamdi          #+#    #+#             */
-/*   Updated: 2022/12/30 17:59:22 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2022/12/31 08:49:21 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void rotate_stack(t_stack *stack)
 	stack->top->next = 0;
 	last = get_last_node(stack->stack_data);
 	last->next = stack->top;
+	stack->top = stack->stack_data;
 }
 
 void rotate_both_stacks(t_stack *a, t_stack *b)

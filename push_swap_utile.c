@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:21:32 by aamhamdi          #+#    #+#             */
-/*   Updated: 2022/12/30 18:10:26 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2022/12/31 09:02:41 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,12 +174,9 @@ void sort_stack_a(t_stack *a, t_stack *b)
 	{
 		if(!(*a).top->is_longest)
 		{
-			tmp = (*a).top->next;
-			printf("%d\n", tmp->list_data);
-			// push_in_stack(a, b);
+			(*a).top->next->prev = NULL;
+			push_in_stack(a, b);
 			printf("pb\n");
-			// (*a).top = tmp;
-			// (*a).stack_data = tmp;
 		}
 		else{
 			if(first_longest_sub == -1)
@@ -187,8 +184,6 @@ void sort_stack_a(t_stack *a, t_stack *b)
 			rotate_stack((a));
 			printf("ra\n");
 		}
-		printf("----------\n");
-		// print_list(a->top);
 	}
 }
 
@@ -214,7 +209,7 @@ int main()
 	t_stack a;
 	t_stack b;
 	int ac = 5;
-	char *av[5] = {"60", "9", "7", "20", "1"};
+	char *av[5] = {"15", "9", "7", "20", "1"};
 	if (!(init_stack(ac, av, &a, &b)))
 		return 0;
 
