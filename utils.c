@@ -3,11 +3,14 @@
 void print_list(t_list *list)
 {
 	t_list *tmp;
+	int top = list->prev->list_data;
 	tmp = list;
 	while (tmp)
 	{
 		printf("%d --", tmp->index);
 		printf(" %d\n", tmp->list_data);
+		if(tmp->list_data == top)
+			break;
 		tmp = tmp->next;
 	}
 }
@@ -21,27 +24,25 @@ void make_it_circular(t_stack *a)
 
 t_list *get_min(t_list *list)
 {
-	t_list *tmp;
-	t_list *min = 0;
+	t_list  *min;
 
-	tmp = list;
 	min = list;
-	while(tmp)
+
+	while(list)
 	{
-		if(tmp->list_data < min->list_data)
-			min = tmp;
-		tmp = tmp->next;
+		list = list->next;
+		if(list == min)
+			break;
+		if(list->list_data < min->list_data)
+			min = list;
 	}
 	return min;
 }
 
 void make_it_not_circular(t_stack *a)
 {
-	if(a->top->prev)
-	{
-		a->top->prev->next = NULL;
-		a->top->prev = NULL;
-	}
+	a->top->prev->next = NULL;
+	a->top->prev = NULL;
 }
 void print_tab_int(int *tab)
 {

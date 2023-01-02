@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 09:10:08 by aamhamdi          #+#    #+#             */
-/*   Updated: 2022/12/31 09:10:50 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/01 17:47:06 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,12 @@ int fill_stack(int argc, char **argv, t_stack *stack)
 {
 	int index = 0;
 	t_list *my_list;
-
+	t_list *node;
 	my_list = NULL;
 
 	while (index < argc)
 	{
+		node = NULL;
 		if (!my_list)
 		{
 			if (!(my_list = creat_node(atoi(argv[index]), index)))
@@ -38,7 +39,6 @@ int fill_stack(int argc, char **argv, t_stack *stack)
 		}
 		else
 		{
-			t_list *node;
 			if (!(node = creat_node(atoi(argv[index]), index)))
 			{
 				// free_all();
@@ -50,6 +50,7 @@ int fill_stack(int argc, char **argv, t_stack *stack)
 	}
 	stack->stack_data = my_list;
 	stack->top = my_list;
+	make_it_circular(stack);
 	stack->size = argc;
 	return 1;
 }

@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:21:32 by aamhamdi          #+#    #+#             */
-/*   Updated: 2022/12/31 19:54:42 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/02 11:58:25 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void sort_three_args(t_stack *a)
 {
-	make_it_circular(a);
 	if (a->top->list_data > a->top->next->list_data)
 	{
 		swap_stack(a);
@@ -22,33 +21,30 @@ void sort_three_args(t_stack *a)
 	}
 	if (a->top->list_data > a->top->prev->list_data)
 	{
-		make_it_not_circular(a);
 		reverse_rotate_stack(a);
 		printf("rra\n");
 	}
-	if (a->top->next->list_data > a->top->prev->list_data)
+	else if (a->top->next->list_data > a->top->prev->list_data)
 	{
-		// make_it_not_circular(a);
 		reverse_rotate_stack(a);
 		printf("rra\n");
 		swap_stack(a);
 		printf("sa\n");
 	}
-	make_it_not_circular(a);
 }
 
 void sort_five_args(t_stack *stack_a, t_stack *stack_b)
 {
 	t_list *min;
 		
-	min = get_min(stack_a->stack_data);
+	min = get_min(stack_a->top);
 	while (1)
 	{
 		if (stack_a->top->list_data == min->list_data)
 		{
 			push_in_stack(stack_a, stack_b);
 			printf("pb\n");
-			min = get_min(stack_a->stack_data);
+			min = get_min(stack_a->top);
 		}
 		else
 		{

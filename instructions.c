@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:21:28 by aamhamdi          #+#    #+#             */
-/*   Updated: 2022/12/31 19:53:44 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/02 11:21:36 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,42 @@ int is_empty(t_stack *stack)
 void push(t_stack *stack, int data)
 {
 	t_list *node;
-	t_list *my_list;
-
-	my_list = stack->stack_data;
+	t_list *tmp;
+	
 	node = creat_node(data, stack->size);
-	if(!my_list)
-		my_list = node;
+	if(!stack->top)
+		stack->top = node;
 	else
-		insert_node(&my_list, node);
-	stack->top = node;
-	stack->stack_data = my_list;
+	{
+		if(stack->size == 1)
+		{
+			node->next = stack->top;
+			node->prev = stack->top;
+			stack->top->next = node;
+			stack->top->prev = node;
+			stack->top = node;
+		}
+		else{
+			tmp = stack->top->prev;
+			stack->top->prev = node;
+			node->next = stack->top;
+			node->prev = tmp;
+			tmp->next = node;
+			stack->top = node;
+		}
+	}
+	stack->stack_data = stack->top;
 }
 
 void pop(t_stack *stack)
 {
 	t_list *tmp;
 
-	tmp = stack->stack_data->next;
-
+	stack->top->prev->next = stack->top->next;
+	stack->top->next->prev = stack->top->prev;
+	tmp = stack->top->next;
 	free(stack->top);
 	stack->top = tmp;
-	if(tmp)
-		tmp->prev = NULL;
 	stack->stack_data = tmp;
 }
 
@@ -72,21 +86,21 @@ void push_in_stack(t_stack *from , t_stack *to)
 
 t_list *get_last_node(t_list *list)
 {
-	while(list->next)
-		list = list->next;
-	return list;
+	t_list *tmp;
+
+	tmp = list;
+	while(tmp->next)
+	{
+		tmp =tmp->next;
+	}
+	return tmp;
 }
 
 
 void rotate_stack(t_stack *stack)
 {
-	t_list *last;
-	
-	stack->stack_data = stack->top->next;
-	stack->top->next = NULL;
-	last = get_last_node(stack->stack_data);
-	last->next = stack->top;
-	stack->top = stack->stack_data;
+	stack->top = stack->stack_data->next;
+	stack->stack_data = stack->top;
 }
 
 void rotate_both_stacks(t_stack *a, t_stack *b)
@@ -97,13 +111,8 @@ void rotate_both_stacks(t_stack *a, t_stack *b)
 
 void reverse_rotate_stack(t_stack *stack)
 {
-	t_list *last;
-
-	last = get_last_node(stack->stack_data);
-	last->prev->next = NULL;
-	stack->stack_data = last;
-	last->next = stack->top;
-	stack->top = last;
+	stack->top = stack->stack_data->prev;
+	stack->stack_data = stack->top;
 }
 
 void reverse_rotate_both_stacks(t_stack *a, t_stack *b)
