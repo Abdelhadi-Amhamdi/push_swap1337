@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:21:28 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/02 11:21:36 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/11 15:47:58 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,19 @@ int is_empty(t_stack *stack)
     return (stack->top != 0);
 }
 
-void push(t_stack *stack, int data)
+void push(t_stack *stack, t_list *data)
 {
 	t_list *node;
 	t_list *tmp;
 	
-	node = creat_node(data, stack->size);
-	if(!stack->top)
-		stack->top = node;
+	node = data;
+	if(!stack->stack_data)
+	{
+		stack->stack_data = node;
+		stack->stack_data->prev = node;
+		stack->stack_data->next = node;
+		stack->top = stack->stack_data;
+	}
 	else
 	{
 		if(stack->size == 1)
@@ -50,13 +55,19 @@ void push(t_stack *stack, int data)
 void pop(t_stack *stack)
 {
 	t_list *tmp;
-
-	stack->top->prev->next = stack->top->next;
-	stack->top->next->prev = stack->top->prev;
-	tmp = stack->top->next;
-	free(stack->top);
-	stack->top = tmp;
-	stack->stack_data = tmp;
+	if(stack->stack_data == stack->stack_data->prev)
+	{
+		free(stack->top);
+		stack->top = NULL;
+		stack->stack_data = NULL;
+	}else{
+		stack->top->prev->next = stack->top->next;
+		stack->top->next->prev = stack->top->prev;
+		tmp = stack->top->next;
+		free(stack->top);
+		stack->top = tmp;
+		stack->stack_data = tmp;
+	}
 }
 
 
@@ -78,10 +89,25 @@ void swap_both_stacks(t_stack *b , t_stack *a)
 
 void push_in_stack(t_stack *from , t_stack *to)
 {
-	push(to, from->stack_data->list_data);
+	t_list *tmp = from->stack_data->next;
+	t_list *last = from->top->prev;
+	t_list *current = from->stack_data;
+	
+	current->next = NULL;
+	current->prev = NULL;
+	push(to, current);
+	
+	from->top = tmp;
+	from->stack_data = from->top;
+	
 	from->size--;
 	to->size++;
-	pop(from);
+	if(from->size)
+	{
+		last->next = tmp;
+		tmp->prev = last;
+	}
+	
 }
 
 t_list *get_last_node(t_list *list)
