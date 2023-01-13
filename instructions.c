@@ -6,16 +6,12 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:21:28 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/11 15:47:58 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/13 17:10:58 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int is_empty(t_stack *stack)
-{
-    return (stack->top != 0);
-}
+#include <assert.h>
 
 void push(t_stack *stack, t_list *data)
 {
@@ -50,6 +46,7 @@ void push(t_stack *stack, t_list *data)
 		}
 	}
 	stack->stack_data = stack->top;
+	
 }
 
 void pop(t_stack *stack)
@@ -79,12 +76,16 @@ void swap_stack(t_stack *stack)
 	tmp = stack->top->list_data;
 	stack->top->list_data = stack->stack_data->next->list_data;
 	stack->top->next->list_data = tmp;
+	write(1, "s", 1);
+	write(1, &stack->name, 1);
+	write(1, "\n", 1);
 }
 
 void swap_both_stacks(t_stack *b , t_stack *a)
 {
 	swap_stack(a);
 	swap_stack(b);
+	write(1, "ss\n", 2);
 }
 
 void push_in_stack(t_stack *from , t_stack *to)
@@ -107,7 +108,9 @@ void push_in_stack(t_stack *from , t_stack *to)
 		last->next = tmp;
 		tmp->prev = last;
 	}
-	
+	write(1, "p", 1);
+	write(1, &to->name, 1);
+	write(1, "\n", 1);
 }
 
 t_list *get_last_node(t_list *list)
@@ -127,22 +130,30 @@ void rotate_stack(t_stack *stack)
 {
 	stack->top = stack->stack_data->next;
 	stack->stack_data = stack->top;
+	write(1, "r", 1);
+	write(1, &stack->name, 1);
+	write(1, "\n", 1);
 }
 
 void rotate_both_stacks(t_stack *a, t_stack *b)
 {
     rotate_stack(a);
     rotate_stack(b);
+	write(1, "rr\n", 3);
 }
 
 void reverse_rotate_stack(t_stack *stack)
 {
 	stack->top = stack->stack_data->prev;
 	stack->stack_data = stack->top;
+	write(1, "rr", 2);
+	write(1, &stack->name, 1);
+	write(1, "\n", 1);
 }
 
 void reverse_rotate_both_stacks(t_stack *a, t_stack *b)
 {
     reverse_rotate_stack(a);
     reverse_rotate_stack(b);
+	write(1, "rrr\n", 4);
 }

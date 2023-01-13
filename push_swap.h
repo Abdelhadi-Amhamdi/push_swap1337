@@ -6,13 +6,14 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:24:19 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/12 14:26:47 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/13 17:12:25 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 #define PUSH_SWAP_H
 #include "libc.h"
+#include <assert.h>
 
 typedef struct s_list
 {
@@ -27,6 +28,7 @@ typedef struct s_list
 
 typedef struct s_stack
 {
+	char name;
 	struct s_list *stack_data;
 	struct s_list *top;
 	int size;
@@ -35,6 +37,7 @@ typedef struct s_stack
 
 
 int ft_search(t_list *list, int index);
+void make_min_top(t_stack *stack);
 void print_tab_int(int *tab);
 int get_sorted_numbers(t_stack *stack_a);
 t_list *get_max(t_list *list);
@@ -43,7 +46,7 @@ void longest_increasing_subsquence_algo(t_stack *stack_a, t_stack *stack_b);
 void sort_stack_a(t_stack *a, t_stack *b);
 void push_from_b_and_sort(t_stack *a, t_stack *b);
 
-int is_empty(t_stack *stack);
+
 void index_it(t_list *list, int size);
 t_list *get_next_min(t_list *list, t_list *fmin);
 void reindex_stack_a(t_list *list);
