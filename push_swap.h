@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:24:19 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/13 17:12:25 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/14 13:47:56 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,25 +36,34 @@ typedef struct s_stack
 } t_stack;
 
 
+// utils
+void index_by_sort(t_list *list, int size);
+
+
+// sorting
+void move_min_to_top(t_stack *stack);
+void sort_five(t_stack *stack_a, t_stack *stack_b);
+void sort_three(t_stack *a);
+
+
+// stack
+
+// instructions
 int ft_search(t_list *list, int index);
-void make_min_top(t_stack *stack);
 void print_tab_int(int *tab);
 int get_sorted_numbers(t_stack *stack_a);
 t_list *get_max(t_list *list);
 void check_list(t_stack *stack);
-void longest_increasing_subsquence_algo(t_stack *stack_a, t_stack *stack_b);
+void sort_algo(t_stack *stack_a, t_stack *stack_b);
 void sort_stack_a(t_stack *a, t_stack *b);
 void push_from_b_and_sort(t_stack *a, t_stack *b);
 
 
-void index_it(t_list *list, int size);
 t_list *get_next_min(t_list *list, t_list *fmin);
 void reindex_stack_a(t_list *list);
 
 void push(t_stack *stack, t_list *data);
 void pop(t_stack *stack);
-void sort_three_args(t_stack *a);
-void sort_five_args(t_stack *stack_a, t_stack *stack_b);
 void make_it_circular(t_stack *a);
 void make_it_not_circular(t_stack *a);
 t_list *get_min(t_list *list);

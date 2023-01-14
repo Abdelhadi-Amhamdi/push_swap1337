@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 09:10:08 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/13 15:39:20 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/14 13:45:48 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int init_stack(int argc, char **argv, t_stack *a_stack, t_stack *b_stack)
 {
-
 	a_stack->size = 0;
 	b_stack->size = 0;
 	a_stack->name = 'a';
@@ -22,6 +21,8 @@ int init_stack(int argc, char **argv, t_stack *a_stack, t_stack *b_stack)
 	b_stack->stack_data = NULL;
 	if (!(fill_stack(argc, argv, a_stack)))
 		return 0;
+	index_by_sort(a_stack->stack_data, a_stack->size);
+	move_min_to_top(a_stack);
 	return 1;
 }
 

@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:21:28 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/13 17:10:58 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/14 13:31:26 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,24 +90,44 @@ void swap_both_stacks(t_stack *b , t_stack *a)
 
 void push_in_stack(t_stack *from , t_stack *to)
 {
-	t_list *tmp = from->stack_data->next;
-	t_list *last = from->top->prev;
-	t_list *current = from->stack_data;
+	t_list *tmp;
+	t_list *item;
+
+
+	item = from->stack_data;
+	tmp = item->next;
+
+	make_it_not_circular(to);
+	make_it_not_circular(from);
 	
-	current->next = NULL;
-	current->prev = NULL;
-	push(to, current);
-	
-	from->top = tmp;
-	from->stack_data = from->top;
-	
-	from->size--;
-	to->size++;
-	if(from->size)
+	item->next = NULL;
+	item->prev = NULL;
+
+	if(to->stack_data)
 	{
-		last->next = tmp;
-		tmp->prev = last;
+		
+		item->next = to->stack_data;
+		to->stack_data->prev = item;
 	}
+	to->stack_data = item;
+	to->top = item;
+
+	tmp->prev  = NULL;
+	from->stack_data = tmp;
+	from->top = tmp;
+	
+
+	to->size++;
+	from->size--;
+
+	if(to->size == 0)
+		to->stack_data = NULL;
+	if(from->size == 0)
+		from->stack_data = NULL;
+	
+	make_it_circular(to);
+	make_it_circular(from);
+	
 	write(1, "p", 1);
 	write(1, &to->name, 1);
 	write(1, "\n", 1);
@@ -119,9 +139,7 @@ t_list *get_last_node(t_list *list)
 
 	tmp = list;
 	while(tmp->next)
-	{
 		tmp =tmp->next;
-	}
 	return tmp;
 }
 

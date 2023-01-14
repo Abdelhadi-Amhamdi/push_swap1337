@@ -6,15 +6,14 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:21:32 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/13 16:12:58 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/14 14:19:32 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int where(t_stack *stack, int index);
 
-void sort_three_args(t_stack *a)
+void sort_three(t_stack *a)
 {
 	if (a->top->list_data > a->top->next->list_data)
 		swap_stack(a);
@@ -27,7 +26,7 @@ void sort_three_args(t_stack *a)
 	}
 }
 
-void sort_five_args(t_stack *stack_a, t_stack *stack_b)
+void sort_five(t_stack *stack_a, t_stack *stack_b)
 {
 	t_list *min;
 
@@ -50,7 +49,7 @@ void sort_five_args(t_stack *stack_a, t_stack *stack_b)
 			break;
 	}
 
-	sort_three_args(stack_a);
+	sort_three(stack_a);
 	while (stack_b->stack_data)
 		push_in_stack(stack_b, stack_a);
 }
@@ -138,7 +137,7 @@ void calc_moves(t_stack *a, t_stack *b)
 		int b_moves;
 
 		if (tmp_b->less_than > b->size / 2)
-			b_moves =  b->size - tmp_b->less_than;
+			b_moves = b->size - tmp_b->less_than;
 		else
 			b_moves = tmp_b->less_than;
 		tmp_b->is_longest = (a_moves + b_moves);
@@ -154,7 +153,6 @@ t_list *get_min_moves(t_list *list)
 	int top = list->list_data;
 	while (1)
 	{
-
 		list = list->next;
 		if (list->list_data == top)
 			break;
@@ -164,44 +162,43 @@ t_list *get_min_moves(t_list *list)
 	return min;
 }
 
-void make_min_top(t_stack *stack)
+void move_min_to_top(t_stack *stack)
 {
 	int m = ft_search(stack->stack_data, -1);
-	while(1)
+	while (1)
 	{
-		if(stack->stack_data->index == 0)
+		if (stack->stack_data->index == 0)
 			break;
 		else
 			reverse_rotate_stack(stack);
 	}
 }
 
-
 void make_it_to_top(t_stack *stack, t_list *item)
 {
-	while(1)
+	while (1)
 	{
-		if(stack->stack_data->list_data == item->list_data)
+		if (stack->stack_data->list_data == item->list_data)
 			break;
-		if(item->less_than > (stack->size / 2))
+		if (item->less_than > (stack->size / 2))
 			reverse_rotate_stack(stack);
 		else
 			rotate_stack(stack);
 	}
 }
 
-t_list  *get_item(t_list *list , int index)
+t_list *get_item(t_list *list, int index)
 {
 	int top = list->list_data;
 	t_list *tmp;
 
 	tmp = list;
-	while(1)
+	while (1)
 	{
-		if(tmp->index > index)
+		if (tmp->index > index)
 			return tmp;
 		tmp = tmp->next;
-		if(tmp->list_data == top)
+		if (tmp->list_data == top)
 			break;
 	}
 	return NULL;
@@ -212,30 +209,32 @@ void push_from_b_and_sort(t_stack *a, t_stack *b)
 	t_list *min_moves;
 	t_list *item;
 
-	while(1)
+	while (1)
 	{
 		calc_moves(a, b);
-		if(!b->size)
-		{
-			b->stack_data = NULL;
-			b->top = NULL;
-			break;
-		}
+
 		min_moves = get_min_moves(b->stack_data);
-		make_it_to_top(b , min_moves);
-		if(b->stack_data == min_moves)
+		make_it_to_top(b, min_moves);
+		if (b->stack_data == min_moves)
 		{
 			item = get_item(a->stack_data, min_moves->index);
-			if(!item)
-				make_min_top(a);
+			if (!item)
+				move_min_to_top(a);
 			else
 				make_it_to_top(a, item);
-			
+
 			push_in_stack(b, a);
+			if (!b->size)
+			{
+				b->stack_data = NULL;
+				b->top = NULL;
+				move_min_to_top(a);
+				break;
+			}
 			reindex_stack_a(a->stack_data);
 			reindex_stack_a(b->stack_data);
 		}
-		make_min_top(a);
+		move_min_to_top(a);
 	}
 }
 
@@ -256,7 +255,7 @@ void sort_stack_a(t_stack *a, t_stack *b)
 	}
 }
 
-void longest_increasing_subsquence_algo(t_stack *stack_a, t_stack *stack_b)
+void sort_algo(t_stack *stack_a, t_stack *stack_b)
 {
 	get_sorted_numbers(stack_a);
 	sort_stack_a(stack_a, stack_b);

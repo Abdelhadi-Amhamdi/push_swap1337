@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 09:08:56 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/13 16:46:47 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/14 13:48:48 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,23 @@ int main()
 {
 	t_stack a;
 	t_stack b;
-	int ac = 5;
-	char *av[5] = {"9", "4", "-10", "7", "0"};
+	int ac = 7;
+	char *av[7] = {"4", "8", "3", "100", "33", "55", "10"};
 	// ac--;
 	// av++;
 	if (!(init_stack(ac, av, &a, &b)))
 		return 0;
-	index_it(a.stack_data, a.size);
+	
 	if(ac <= 3)
-		sort_three_args(&a);
+		sort_three(&a);
 	else if(ac <= 5)
-		sort_five_args(&a, &b);
+		sort_five(&a, &b);
 	else
-		longest_increasing_subsquence_algo(&a, &b);
+		sort_algo(&a, &b);
 		
-    printf("----------\n");
-	print_list(a.stack_data);
-	printf("----------\n");
-	print_list(b.stack_data);
+    // printf("----------\n");
+	// print_list(a.stack_data);
+	// printf("----------\n");
+	// print_list(b.stack_data);
 
 }
