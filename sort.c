@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:21:32 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/14 14:19:32 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/14 14:42:02 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int get_max_index(int *tab)
 	return max_value;
 }
 
-int get_sorted_numbers(t_stack *stack_a)
+int find_sorted_numbers(t_stack *stack_a)
 {
 	t_list *min_node = stack_a->top;
 	t_list *tmp;
@@ -174,7 +174,7 @@ void move_min_to_top(t_stack *stack)
 	}
 }
 
-void make_it_to_top(t_stack *stack, t_list *item)
+void move_node_to_top(t_stack *stack, t_list *item)
 {
 	while (1)
 	{
@@ -204,7 +204,7 @@ t_list *get_item(t_list *list, int index)
 	return NULL;
 }
 
-void push_from_b_and_sort(t_stack *a, t_stack *b)
+void push_and_sort(t_stack *a, t_stack *b)
 {
 	t_list *min_moves;
 	t_list *item;
@@ -214,14 +214,14 @@ void push_from_b_and_sort(t_stack *a, t_stack *b)
 		calc_moves(a, b);
 
 		min_moves = get_min_moves(b->stack_data);
-		make_it_to_top(b, min_moves);
+		move_node_to_top(b, min_moves);
 		if (b->stack_data == min_moves)
 		{
 			item = get_item(a->stack_data, min_moves->index);
 			if (!item)
 				move_min_to_top(a);
 			else
-				make_it_to_top(a, item);
+				move_node_to_top(a, item);
 
 			push_in_stack(b, a);
 			if (!b->size)
@@ -231,14 +231,14 @@ void push_from_b_and_sort(t_stack *a, t_stack *b)
 				move_min_to_top(a);
 				break;
 			}
-			reindex_stack_a(a->stack_data);
-			reindex_stack_a(b->stack_data);
+			reindex_list(a->stack_data);
+			reindex_list(b->stack_data);
 		}
 		move_min_to_top(a);
 	}
 }
 
-void sort_stack_a(t_stack *a, t_stack *b)
+void clean_stack(t_stack *a, t_stack *b)
 {
 	t_list *tmp = NULL;
 
@@ -257,9 +257,9 @@ void sort_stack_a(t_stack *a, t_stack *b)
 
 void sort_algo(t_stack *stack_a, t_stack *stack_b)
 {
-	get_sorted_numbers(stack_a);
-	sort_stack_a(stack_a, stack_b);
-	reindex_stack_a(stack_a->stack_data);
-	reindex_stack_a(stack_b->stack_data);
-	push_from_b_and_sort(stack_a, stack_b);
+	find_sorted_numbers(stack_a);
+	clean_stack(stack_a, stack_b);
+	reindex_list(stack_a->stack_data);
+	reindex_list(stack_b->stack_data);
+	push_and_sort(stack_a, stack_b);
 }

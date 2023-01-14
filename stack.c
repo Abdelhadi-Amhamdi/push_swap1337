@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 09:10:08 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/14 13:45:48 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/14 14:43:29 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int fill_stack(int argc, char **argv, t_stack *stack)
 	}
 	stack->stack_data = my_list;
 	stack->top = my_list;
-	make_it_circular(stack);
+	make_list_circular(stack);
 	stack->size = argc;
 	return 1;
 }

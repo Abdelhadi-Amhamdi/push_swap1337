@@ -25,7 +25,7 @@ void print_list(t_list *list)
 	}
 }
 
-void reindex_stack_a(t_list *list)
+void reindex_list(t_list *list)
 {
 
 	int top = list->list_data;
@@ -79,7 +79,7 @@ t_list *get_next_min(t_list *list, t_list *fmin)
 	return min;
 }
 
-void make_it_circular(t_stack *a)
+void make_list_circular(t_stack *a)
 {
 	if(a->stack_data)
 	{
@@ -147,7 +147,7 @@ t_list *get_max(t_list *list)
 	return max;
 }	
 
-void make_it_not_circular(t_stack *a)
+void make_list_not_circular(t_stack *a)
 {
 	if(a->stack_data)
 	{
@@ -155,25 +155,14 @@ void make_it_not_circular(t_stack *a)
 		a->top->prev = NULL;
 	}
 }
-void print_tab_int(int *tab)
-{
-	int index = 0;
-	while (tab[index])
-		printf("%d\n", tab[index++]);
-}
 
 
-void check_list(t_stack *stack)
+t_list *get_last_node(t_list *list)
 {
-	t_list *list = stack->stack_data;
-	if(list->list_data > list->prev->list_data)
-	{
-		reverse_rotate_stack(stack);
-		printf("rra\n");
-	}
-	if(list->list_data > list->next->list_data)
-	{
-		swap_stack(stack);
-		printf("sa\n");
-	}
+	t_list *tmp;
+
+	tmp = list;
+	while(tmp->next)
+		tmp =tmp->next;
+	return tmp;
 }
