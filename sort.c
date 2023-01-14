@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:21:32 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/14 14:42:02 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/14 15:47:58 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,11 +176,11 @@ void move_min_to_top(t_stack *stack)
 
 void move_node_to_top(t_stack *stack, t_list *item)
 {
-	while (1)
+	while (1) 
 	{
 		if (stack->stack_data->list_data == item->list_data)
 			break;
-		if (item->less_than > (stack->size / 2))
+		if (item->less_than >= (stack->size / 2))
 			reverse_rotate_stack(stack);
 		else
 			rotate_stack(stack);
@@ -217,13 +217,21 @@ void push_and_sort(t_stack *a, t_stack *b)
 		move_node_to_top(b, min_moves);
 		if (b->stack_data == min_moves)
 		{
-			item = get_item(a->stack_data, min_moves->index);
-			if (!item)
-				move_min_to_top(a);
-			else
-				move_node_to_top(a, item);
+			// if(a->stack_data->index == min_moves->index - 1)
+			// {
+			// 	push_in_stack(b, a);
+			// 	swap_stack(a);
+			// }
+			// else
+			// {
+				item = get_item(a->stack_data, min_moves->index);
+				if (!item)
+					move_min_to_top(a);
+				else
+					move_node_to_top(a, item);
 
-			push_in_stack(b, a);
+				push_in_stack(b, a);
+			// }
 			if (!b->size)
 			{
 				b->stack_data = NULL;
