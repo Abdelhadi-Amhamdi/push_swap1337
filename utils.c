@@ -25,6 +25,9 @@ void print_list(t_list *list)
 	}
 }
 
+
+
+
 void reindex_list(t_list *list)
 {
 
@@ -154,6 +157,17 @@ void make_list_not_circular(t_stack *a)
 		a->top->prev->next = NULL;
 		a->top->prev = NULL;
 	}
+}
+
+int contains(char *str, char c)
+{
+	while(*str)
+	{
+		if(*str == c)
+			return 1;
+		str++;
+	}
+	return 0;
 }
 
 
