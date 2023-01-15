@@ -6,12 +6,12 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 14:05:51 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/15 17:21:31 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/15 18:44:12 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "./libft/libft.h"
+#include "libft.h"
 #include "push_swap.h"
 
 char *join_all_args(char **av, int ac)
@@ -60,6 +60,12 @@ int *filter_args(char **tabs, size_t size)
 			j++;
 		}
         num = ft_atoi(tabs[index]);
+		if(num >= 2147483647 || num <= -2147483648)
+		{
+            free(data);
+            printf("Error\n");
+            return 0;
+		}
 		data[index] = num;
         if(!check_deplucate(data, num, index))
         {

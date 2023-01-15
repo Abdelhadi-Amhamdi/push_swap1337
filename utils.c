@@ -25,20 +25,40 @@ void print_list(t_list *list)
 	}
 }
 
+int check_sort(t_stack *stack)
+{
+	t_list *tmp;
+
+	tmp = stack->stack_data;
+	int top = tmp->list_data;
+	while(tmp)
+	{
+		tmp = tmp->next;
+		if(tmp->list_data == top)
+			return 1;
+		if(tmp->index-1 != tmp->prev->index)
+			return 0;
+	}
+	return 1;
+}
+
 void reindex_list(t_list *list)
 {
 
-	int top = list->list_data;
-	int index = 0;
-
-
-	while (list)
+	if(list)
 	{
-		list->less_than = index;
-		list = list->next;
-		if(list->list_data == top)
-			break;
-		index++;
+		int top = list->list_data;
+		int index = 0;
+
+
+		while (list)
+		{
+			list->less_than = index;
+			list = list->next;
+			if(list->list_data == top)
+				break;
+			index++;
+		}
 	}
 }
 
@@ -115,7 +135,7 @@ int ft_search(t_list *list, int index)
 	top = tmp->list_data;
 	while(1)
 	{
-		if(tmp->index > index)
+		if(tmp->index == index)
 			return (tmp->less_than);
 		tmp = tmp->next;
 		if(tmp->list_data == top)

@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 09:10:08 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/15 17:29:09 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/15 21:10:56 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int fill_stack(size_t len, int *data, t_stack *stack)
 		{
 			if (!(my_list = creat_node(data[len-index])))
 				return (0);
+			my_list->less_than = (len - index);
 		}
 		else
 		{
@@ -50,6 +51,7 @@ int fill_stack(size_t len, int *data, t_stack *stack)
 				// free_all();
 				return (0);
 			}
+			node->less_than = (len - index);
 			insert_node(&my_list, node);
 		}
 		index++;

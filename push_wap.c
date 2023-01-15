@@ -6,12 +6,12 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 09:08:56 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/15 17:18:34 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/15 21:18:38 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "./libft/libft.h"
+#include "libft.h"
 
 int main(int ac, char **av)
 {
@@ -35,17 +35,22 @@ int main(int ac, char **av)
 		if (!(init_stack(size, data, &a, &b)))
 			return 0;
 
-		if (size <= 3)
-			sort_three(&a);
-		else if (size <= 5)
-			sort_five(&a, &b);
-		else
-			sort_algo(&a, &b);
+		if(!check_sort(&a))
+		{
+			if (size <= 3)
+				sort_three(&a);
+			else if (size <= 5)
+				sort_five(&a, &b);
+			else
+				sort_algo(&a, &b);
+		}
 
-		printf("----------\n");
-		print_list(a.stack_data);
-		printf("----------\n");
-		print_list(b.stack_data);
+			
+
+		// printf("----------\n");
+		// print_list(a.stack_data);
+		// printf("----------\n");
+		// print_list(b.stack_data);
 	}
 	
 	return(0);

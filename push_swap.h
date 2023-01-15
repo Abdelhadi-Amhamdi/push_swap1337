@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:24:19 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/15 17:20:47 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/15 17:46:25 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int find_sorted_numbers(t_stack *stack_a);
 void calc_moves(t_stack *a, t_stack *b);
 void push_and_sort(t_stack *a, t_stack *b);
 void clean_stack(t_stack *a, t_stack *b);
+int check_sort(t_stack *stack);
 
 
 // stack
