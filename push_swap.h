@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:24:19 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/14 14:48:59 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/15 17:20:47 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,11 @@ void clean_stack(t_stack *a, t_stack *b);
 
 
 // stack
-t_list *creat_node(int data, int index);
+t_list *creat_node(int data);
 void insert_node(t_list **list, t_list *node);
-int init_stack(int argc, char **argv, t_stack *a, t_stack *b);
-int fill_stack(int argc, char **argv, t_stack *stack);
+int init_stack(size_t len, int *data, t_stack *a, t_stack *b);
+int fill_stack(size_t len, int *data, t_stack *stack);
+int contains(char *str, char c);
 
 // instructions
 void push_in_stack(t_stack *from, t_stack *to);
@@ -78,5 +79,12 @@ void rotate_stack(t_stack *stack);
 void rotate_both_stacks(t_stack *a, t_stack *b);
 void reverse_rotate_stack(t_stack *stack);
 void reverse_rotate_both_stacks(t_stack *a, t_stack *b);
+
+
+// parsing
+int *filter_args(char **av, size_t size);
+size_t ft_lenght(char **tabs);
+char *join_all_args(char **av, int ac);
+int check_deplucate(int *data, int num, int len);
 
 #endif

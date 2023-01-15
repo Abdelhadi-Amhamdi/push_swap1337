@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:21:32 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/14 15:47:58 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/15 15:26:59 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,6 +265,7 @@ void clean_stack(t_stack *a, t_stack *b)
 
 void sort_algo(t_stack *stack_a, t_stack *stack_b)
 {
+	move_min_to_top(stack_a);
 	find_sorted_numbers(stack_a);
 	clean_stack(stack_a, stack_b);
 	reindex_list(stack_a->stack_data);

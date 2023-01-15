@@ -25,9 +25,6 @@ void print_list(t_list *list)
 	}
 }
 
-
-
-
 void reindex_list(t_list *list)
 {
 

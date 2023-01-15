@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 22:26:21 by aamhamdi          #+#    #+#             */
-/*   Updated: 2022/10/26 17:01:03 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/15 13:38:51 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 # define LIBFT_H
 # include<libc.h>
 
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}	t_list;
+// typedef struct s_list
+// {
+// 	void			*content;
+// 	struct s_list	*next;
+// }	t_list;
 
 int		ft_isdigit(int c);
 int		ft_isalpha(int c);
@@ -54,14 +54,11 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 void	ft_putendl_fd(char *s, int fd);
-t_list	*ft_lstnew(void *content);
-void	ft_lstadd_front(t_list **lst, t_list *new);
-int		ft_lstsize(t_list *lst);
-t_list	*ft_lstlast(t_list *lst);
-void	ft_lstadd_back(t_list **lst, t_list *new);
-void	ft_lstdelone(t_list *lst, void (*del)(void*));
-void	ft_lstclear(t_list **lst, void (*del)(void *));
-void	ft_lstiter(t_list *lst, void (*f)(void *));
-t_list	*ft_lstmap(t_list *lst, void *(*ft)(void *), void(*del)(void *));
+// void	ft_lstadd_front(t_list **lst, t_list *new);
+// int		ft_lstsize(t_list *lst);
+// void	ft_lstadd_back(t_list **lst, t_list *new);
+// void	ft_lstdelone(t_list *lst, void (*del)(void*));
+// void	ft_lstclear(t_list **lst, void (*del)(void *));
+// void	ft_lstiter(t_list *lst, void (*f)(void *));
 
 #endif
