@@ -6,13 +6,13 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:21:32 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/16 15:47:04 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/16 17:36:57 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void sort_three(t_stack *a)
+void	sort_three(t_stack *a)
 {
 	if (a->top->list_data > a->top->next->list_data)
 		swap_stack(a);
@@ -25,9 +25,9 @@ void sort_three(t_stack *a)
 	}
 }
 
-void sort_five(t_stack *stack_a, t_stack *stack_b)
+void	sort_five(t_stack *stack_a, t_stack *stack_b)
 {
-	t_list *min;
+	t_list	*min;
 
 	min = get_min(stack_a->top);
 	while (1)
@@ -45,65 +45,64 @@ void sort_five(t_stack *stack_a, t_stack *stack_b)
 				rotate_stack(stack_a);
 		}
 		if (stack_a->size == 3)
-			break;
+			break ;
 	}
-
 	sort_three(stack_a);
 	while (stack_b->stack_data)
 		push_in_stack(stack_b, stack_a);
 }
 
-int get_max_index(int *tab)
+int	get_max_index(int *tab)
 {
-	int max_value = *tab;
-	int index = 0;
+	int	max_index;
+	int	index;
 
+	max_index = *tab;
+	index = 0;
 	while (tab[index])
 	{
-		if (tab[index] > max_value)
-			max_value = tab[index];
+		if (tab[index] > max_index)
+			max_index = tab[index];
 		index++;
 	}
-	return max_value;
+	return (max_index);
 }
 
-int find_sorted_numbers(t_stack *stack_a)
+int	find_sorted_numbers(t_stack *stack_a)
 {
-	t_list *min_node = stack_a->top;
-	t_list *tmp;
-	t_list *ptr;
-	int size = 0;
+	t_list	*min_node;
+	t_list	*tmp;
+	t_list	*ptr;
+	int		size;
+	t_list	*max_index;
+	int		prev_less;
+	int		prev_val;
 
-	min_node->less_than = stack_a->size - 1;
-
+	min_node = stack_a->top
+	min_node->less_than = (stack_a->size - 1);
+	size = 0;
 	tmp = min_node;
 	while (1)
 	{
-
 		tmp = tmp->next;
-		if (tmp->list_data == min_node->list_data)
-			break;
 		ptr = tmp;
+		if (tmp->list_data == min_node->list_data)
+			break ;
 		while (1)
 		{
 			ptr = ptr->next;
 			if (ptr->list_data == min_node->list_data)
-				break;
+				break ;
 			if (ptr->list_data > tmp->list_data)
 				size++;
 		}
 		tmp->less_than = size;
 		size = 0;
 	}
-
 	tmp = min_node;
 	tmp->is_longest = 1;
-	t_list *max_index;
-	int prev_less;
-	int prev_val;
 	prev_less = tmp->less_than;
 	prev_val = tmp->list_data;
-
 	while (1)
 	{
 		max_index = get_max(tmp, stack_a->top->less_than);
@@ -115,24 +114,25 @@ int find_sorted_numbers(t_stack *stack_a)
 		}
 		tmp = max_index;
 		if (tmp->list_data == min_node->list_data || max_index->less_than == 0)
-			break;
+			break ;
 	}
-	return 1;
+	return (1);
 }
 
-void calc_moves(t_stack *a, t_stack *b)
+void	calc_moves(t_stack *a, t_stack *b)
 {
-	t_list *next_node;
-	int b_moves;
-	int a_moves;
+	t_list	*next_node;
+	t_list	*tmp_b;
+	t_list	*tmp_a;
+	int		b_moves;
+	int		a_moves;
+	int		top;
 
 	if (!b->stack_data)
-		return;
-	t_list *tmp_b = b->stack_data;
-	int top = tmp_b->list_data;
-
-	t_list *tmp_a = a->stack_data;
-
+		return ;
+	tmp_b = b->stack_data;
+	tmp_a = a->stack_data;
+	top = tmp_b->list_data;
 	while (tmp_b)
 	{
 		next_node = get_next_min(tmp_a, tmp_b);
@@ -142,58 +142,59 @@ void calc_moves(t_stack *a, t_stack *b)
 			a_moves = next_node->less_than;
 		if (a_moves >= (a->size / 2))
 			a_moves = a->size - a_moves;
-			
 		b_moves = tmp_b->less_than;
 		if (b_moves >= b->size / 2)
 			b_moves = b->size - b_moves;
-
 		tmp_b->is_longest = (a_moves + b_moves);
 		tmp_b = tmp_b->next;
 		if (tmp_b->list_data == top)
-			break;
+			break ;
 	}
 }
 
-t_list *get_min_moves(t_list *list)
+t_list	*get_min_moves(t_list *list)
 {
-	t_list *min = NULL;
+	t_list	*min;
+	int		top;
 
 	min = list;
 	if (list)
 	{
-		int top = list->list_data;
+		top = list->list_data;
 		while (1)
 		{
 			list = list->next;
 			if (list->list_data == top)
-				break;
+				break ;
 			if (list->is_longest < min->is_longest)
 				min = list;
 		}
 	}
-	return min;
+	return (min);
 }
 
-void move_min_to_top(t_stack *stack)
+void	move_min_to_top(t_stack *stack)
 {
-	int m = ft_search(stack->stack_data, 0);
+	int	min_position;
+
+	min_position = ft_search(stack->stack_data, 0);
 	while (1)
 	{
 		if (stack->stack_data->index == 0)
-			break;
-		else if (m >= (stack->size / 2))
+			break ;
+		else if (min_position >= (stack->size / 2))
 			reverse_rotate_stack(stack);
 		else
 			rotate_stack(stack);
 	}
 }
 
-void move_node_to_top(t_stack *stack, t_list *item)
+void	move_node_to_top(t_stack *stack, t_list *item)
 {
 	while (1)
 	{
 		if (stack->stack_data->list_data == item->list_data)
-			break;
+			break ;
 		if (item->less_than >= (stack->size / 2))
 			reverse_rotate_stack(stack);
 		else
@@ -201,32 +202,32 @@ void move_node_to_top(t_stack *stack, t_list *item)
 	}
 }
 
-t_list *get_item(t_list *list, int index)
+t_list	*get_item(t_list *list, int index)
 {
-	int top = list->list_data;
-	t_list *tmp;
+	int		top;
+	t_list	*tmp;
 
 	tmp = list;
+	top = list->list_data;
 	while (1)
 	{
 		if (tmp->index > index)
-			return tmp;
+			return (tmp);
 		tmp = tmp->next;
 		if (tmp->list_data == top)
-			break;
+			break ;
 	}
-	return NULL;
+	return (NULL);
 }
 
-void push_and_sort(t_stack *a, t_stack *b)
+void	push_and_sort(t_stack *a, t_stack *b)
 {
-	t_list *min_moves;
-	t_list *item;
+	t_list	*min_moves;
+	t_list	*item;
 
 	while (1)
 	{
 		calc_moves(a, b);
-
 		min_moves = get_min_moves(b->stack_data);
 		move_node_to_top(b, min_moves);
 		reindex_list(b->stack_data);
@@ -245,7 +246,7 @@ void push_and_sort(t_stack *a, t_stack *b)
 			{
 				b->stack_data = NULL;
 				b->top = NULL;
-				break;
+				break ;
 			}
 			reindex_list(a->stack_data);
 			reindex_list(b->stack_data);
@@ -254,12 +255,14 @@ void push_and_sort(t_stack *a, t_stack *b)
 	move_min_to_top(a);
 }
 
-void clean_stack(t_stack *a, t_stack *b)
+void	clean_stack(t_stack *a, t_stack *b)
 {
-	t_list *tmp = a->stack_data;
-	int top = tmp->list_data;
-	t_list *next;
+	t_list	*tmp;
+	int		top;
+	t_list	*next;
 
+	tmp = a->stack_data;
+	top = tmp->list_data;
 	while (1)
 	{
 		next = tmp->next;
@@ -271,11 +274,11 @@ void clean_stack(t_stack *a, t_stack *b)
 		}
 		tmp = next;
 		if (tmp->list_data == top)
-			break;
+			break ;
 	}
 }
 
-void sort_algo(t_stack *stack_a, t_stack *stack_b)
+void	sort_algo(t_stack *stack_a, t_stack *stack_b)
 {
 	move_min_to_top(stack_a);
 	if (!check_sort(stack_a))
@@ -286,7 +289,5 @@ void sort_algo(t_stack *stack_a, t_stack *stack_b)
 		reindex_list(stack_a->stack_data);
 		reindex_list(stack_b->stack_data);
 		push_and_sort(stack_a, stack_b);
-		
-		
 	}
 }

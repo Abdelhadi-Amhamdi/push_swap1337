@@ -1,207 +1,174 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/16 16:34:37 by aamhamdi          #+#    #+#             */
+/*   Updated: 2023/01/16 17:22:40 by aamhamdi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-void print_list(t_list *list)
+int	check_sort(t_stack *stack)
 {
-	t_list *tmp;
-	int top;
-	if(list)
-	{
-		tmp = list;
-		top = tmp->prev->list_data;
-		printf("index ");
-		printf("less ");
-		printf("long ");
-		printf("data\n");
-		while (tmp)
-		{
-			printf("%d -----", tmp->index);
-			printf("%d -----", tmp->less_than);
-			printf("%d -----", tmp->is_longest);
-			printf(" %d\n", tmp->list_data);
-			if(tmp->list_data == top)
-				break;
-			tmp = tmp->next;
-		}
-	}
-}
-
-int check_sort(t_stack *stack)
-{
-	t_list *tmp;
+	t_list	*tmp;
+	int		top;
 
 	tmp = stack->stack_data;
-	int top = tmp->list_data;
-	while(tmp)
+	top = tmp->list_data;
+	while (tmp)
 	{
 		tmp = tmp->next;
-		if(tmp->list_data == top)
-			return 1;
-		if(tmp->index-1 != tmp->prev->index)
-			return 0;
+		if (tmp->list_data == top)
+			break ;
+		if (tmp->index - 1 != tmp->prev->index)
+			return (0);
 	}
-	return 1;
+	return (1);
 }
 
-void reindex_list(t_list *list)
+void	reindex_list(t_list *list)
 {
+	int	top;
+	int	index;
 
-	if(list)
+	if (!list)
+		return ;
+	top = list->list_data;
+	index = 0;
+	while (list)
 	{
-		int top = list->list_data;
-		int index = 0;
-
-
-		while (list)
-		{
-			list->less_than = index;
-			list = list->next;
-			if(list->list_data == top)
-				break;
-			index++;
-		}
-	}
-}
-
-void index_by_sort(t_list *list, int size)
-{
-	t_list *fmin = get_next_min(list , NULL);
-	int index = 0;
-
-	while(1)
-	{
-		fmin->index = index;
-		fmin = get_next_min(list, fmin);
+		list->less_than = index;
+		list = list->next;
+		if (list->list_data == top)
+			break ;
 		index++;
-		if(index == size)
-			break;
 	}
 }
 
-t_list *get_next_min(t_list *list, t_list *fmin)
+void	index_by_sort(t_list *list, int size)
 {
-	t_list *min = NULL;
-	int top;
+	t_list	*first_min;
+	int		index;
+
+	first_min = get_next_min(list, NULL);
+	index = 0;
+	while (1)
+	{
+		first_min->index = index;
+		first_min = get_next_min(list, first_min);
+		index++;
+		if (index == size)
+			break ;
+	}
+}
+
+t_list	*get_next_min(t_list *list, t_list *first_min)
+{
+	t_list	*min;
+	int		top;
 
 	top = list->list_data;
-
-	if(!fmin)
-		return(get_min(list));
-	while(list)
+	min = NULL;
+	if (!first_min)
+		return (get_min(list));
+	while (list)
 	{
-		if(!min && list->list_data > fmin->list_data)
+		if (!min && list->list_data > first_min->list_data)
 			min = list;
-		if(list->list_data > fmin->list_data && list->list_data < min->list_data)
+		if (list->list_data > first_min->list_data && list->list_data < min->list_data)
 			min = list;
 		list = list->next;
-		if(list->list_data == top)
-			break;
+		if (list->list_data == top)
+			break ;
 	}
-	return min;
+	return (min);
 }
 
-void make_list_circular(t_stack *a)
+void	make_list_circular(t_stack *a)
 {
-	if(a->stack_data)
-	{
-		t_list *last = get_last_node(a->stack_data);
-		last->next = a->top;
-		a->top->prev = last;
-	}
+	t_list	*last;
+
+	if (!a->stack_data)
+		return ;
+	last = get_last_node(a->stack_data);
+	last->next = a->top;
+	a->top->prev = last;
 }
 
-t_list *get_min(t_list *list)
+t_list	*get_min(t_list *list)
 {
-	t_list  *min;
+	t_list	*min;
 
 	min = list;
-
-	while(list)
+	while (list)
 	{
 		list = list->next;
-		if(list == min)
-			break;
-		if(list->list_data < min->list_data)
+		if (list == min)
+			break ;
+		if (list->list_data < min->list_data)
 			min = list;
 	}
-	return min;
+	return (min);
 }
 
-int ft_search(t_list *list, int index)
+int	ft_search(t_list *list, int index)
 {
-	t_list *tmp;
-	int top;
+	t_list	*tmp;
+	int		top;
 
 	tmp = list;
 	top = tmp->list_data;
-	t_list *less;
-	while(1)
+	while (1)
 	{
-		if(tmp->index == index)
+		if (tmp->index == index)
 			return (tmp->less_than);
-		else if(tmp->index > index && (!less || tmp->index < less->index))
-			less = tmp;
 		tmp = tmp->next;
-		if(tmp->list_data == top)
-			break;
+		if (tmp->list_data == top)
+			break ;
 	}
-	if(!less)
-		return -1;
-	else
-		return less->less_than;
-	return 0;
+	return (-1);
 }
 
-t_list *get_max(t_list *list, int top)
+t_list	*get_max(t_list *list, int top)
 {
-	t_list *tmp;
-	t_list *max;
-	int max_index;
+	t_list	*tmp;
+	t_list	*max;
+	int		max_index;
+	int		prev_value;
 
 	max_index = list->less_than;
-	int prev_va = list->list_data;
+	prev_value = list->list_data;
 	max = list->next;
 	tmp = max->next;
-
-	prev_va = tmp->list_data;
-
-	while(1)
+	while (1)
 	{
-		if(tmp->less_than == top)
-			break;
-		if(tmp->less_than > max->less_than && tmp->list_data > prev_va)
+		if (tmp->less_than == top)
+			break ;
+		if (tmp->less_than > max->less_than && tmp->list_data > prev_value)
 			max = tmp;
 		tmp = tmp->next;
 	}
-	return max;
-}	
-
-void make_list_not_circular(t_stack *a)
-{
-	if(a->stack_data)
-	{
-		a->top->prev->next = NULL;
-		a->top->prev = NULL;
-	}
+	return (max);
 }
 
-int contains(char *str, char c)
+void	make_list_not_circular(t_stack *a)
 {
-	while(*str)
-	{
-		if(*str == c)
-			return 1;
-		str++;
-	}
-	return 0;
+	if (!a->stack_data)
+		return ;
+	a->top->prev->next = NULL;
+	a->top->prev = NULL;
 }
 
-
-t_list *get_last_node(t_list *list)
+t_list	*get_last_node(t_list *list)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	tmp = list;
-	while(tmp->next)
-		tmp =tmp->next;
-	return tmp;
+	while (tmp->next)
+		tmp = tmp->next;
+	return (tmp);
 }
