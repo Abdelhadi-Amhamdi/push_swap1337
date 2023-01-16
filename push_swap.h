@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:24:19 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/15 17:46:25 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/16 15:17:48 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ typedef struct s_list
 	int is_longest;
 	int less_than;
 	int index;
-
 } t_list;
 
 typedef struct s_stack
@@ -45,7 +44,7 @@ t_list *get_item(t_list *list, int index);
 void reindex_list(t_list *list);
 void make_list_circular(t_stack *a);
 void make_list_not_circular(t_stack *a);
-t_list *get_max(t_list *list);
+t_list *get_max(t_list *list, int top);
 t_list *get_min(t_list *list);
 t_list *get_last_node(t_list *list);
 t_list *get_next_min(t_list *list, t_list *fmin);

@@ -133,35 +133,43 @@ int ft_search(t_list *list, int index)
 
 	tmp = list;
 	top = tmp->list_data;
+	t_list *less;
 	while(1)
 	{
 		if(tmp->index == index)
 			return (tmp->less_than);
+		else if(tmp->index > index && (!less || tmp->index < less->index))
+			less = tmp;
 		tmp = tmp->next;
 		if(tmp->list_data == top)
-			return -1;
+			break;
 	}
-	return -1;
+	if(!less)
+		return -1;
+	else
+		return less->less_than;
+	return 0;
 }
 
-t_list *get_max(t_list *list)
+t_list *get_max(t_list *list, int top)
 {
 	t_list *tmp;
 	t_list *max;
 	int max_index;
 
 	max_index = list->less_than;
+	int prev_va = list->list_data;
 	max = list->next;
 	tmp = max->next;
 
+	prev_va = tmp->list_data;
+
 	while(1)
 	{
-		if(tmp->less_than >= max_index)
+		if(tmp->less_than == top)
 			break;
-		if(tmp->less_than > max->less_than && tmp->less_than < max_index && tmp->less_than)
-		{
+		if(tmp->less_than > max->less_than && tmp->list_data > prev_va)
 			max = tmp;
-		}
 		tmp = tmp->next;
 	}
 	return max;

@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:21:32 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/15 21:19:39 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/16 15:47:04 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ int find_sorted_numbers(t_stack *stack_a)
 
 	while (1)
 	{
-		max_index = get_max(tmp);
-		if (max_index->less_than != prev_less && max_index->list_data > prev_val)
+		max_index = get_max(tmp, stack_a->top->less_than);
+		if (max_index->less_than < prev_less && max_index->list_data > prev_val)
 		{
 			max_index->is_longest = 1;
 			prev_less = max_index->less_than;
@@ -122,7 +122,11 @@ int find_sorted_numbers(t_stack *stack_a)
 
 void calc_moves(t_stack *a, t_stack *b)
 {
-	if (!b->stack_data || a->stack_data)
+	t_list *next_node;
+	int b_moves;
+	int a_moves;
+
+	if (!b->stack_data)
 		return;
 	t_list *tmp_b = b->stack_data;
 	int top = tmp_b->list_data;
@@ -131,16 +135,18 @@ void calc_moves(t_stack *a, t_stack *b)
 
 	while (tmp_b)
 	{
-		int a_moves = ft_search(tmp_a, tmp_b->index);
-
-		if (a_moves == -1)
+		next_node = get_next_min(tmp_a, tmp_b);
+		if (!next_node)
 			a_moves = 0;
-		int b_moves;
-
-		if (tmp_b->less_than > b->size / 2)
-			b_moves = b->size - tmp_b->less_than;
 		else
-			b_moves = tmp_b->less_than;
+			a_moves = next_node->less_than;
+		if (a_moves >= (a->size / 2))
+			a_moves = a->size - a_moves;
+			
+		b_moves = tmp_b->less_than;
+		if (b_moves >= b->size / 2)
+			b_moves = b->size - b_moves;
+
 		tmp_b->is_longest = (a_moves + b_moves);
 		tmp_b = tmp_b->next;
 		if (tmp_b->list_data == top)
@@ -175,7 +181,7 @@ void move_min_to_top(t_stack *stack)
 	{
 		if (stack->stack_data->index == 0)
 			break;
-		else if(m >= (stack->size / 2))
+		else if (m >= (stack->size / 2))
 			reverse_rotate_stack(stack);
 		else
 			rotate_stack(stack);
@@ -223,42 +229,48 @@ void push_and_sort(t_stack *a, t_stack *b)
 
 		min_moves = get_min_moves(b->stack_data);
 		move_node_to_top(b, min_moves);
+		reindex_list(b->stack_data);
 		if (b->stack_data == min_moves)
 		{
-			item = get_item(a->stack_data, min_moves->index);
+			item = get_next_min(a->stack_data, min_moves);
 			if (!item)
 				move_min_to_top(a);
 			else
+			{
 				move_node_to_top(a, item);
-
+				reindex_list(a->stack_data);
+			}
 			push_in_stack(b, a);
 			if (!b->size)
 			{
 				b->stack_data = NULL;
 				b->top = NULL;
-				move_min_to_top(a);
 				break;
 			}
 			reindex_list(a->stack_data);
 			reindex_list(b->stack_data);
 		}
-		move_min_to_top(a);
 	}
+	move_min_to_top(a);
 }
 
 void clean_stack(t_stack *a, t_stack *b)
 {
-	t_list *tmp = NULL;
+	t_list *tmp = a->stack_data;
+	int top = tmp->list_data;
+	t_list *next;
 
 	while (1)
 	{
-		if (tmp == NULL && a->top->is_longest == 1)
-			tmp = a->top;
-		if (a->top->is_longest == 0)
+		next = tmp->next;
+		if (!tmp->is_longest)
+		{
+			move_node_to_top(a, tmp);
 			push_in_stack(a, b);
-		else
-			rotate_stack(a);
-		if (a->top == tmp)
+			reindex_list(a->stack_data);
+		}
+		tmp = next;
+		if (tmp->list_data == top)
 			break;
 	}
 }
@@ -269,9 +281,12 @@ void sort_algo(t_stack *stack_a, t_stack *stack_b)
 	if (!check_sort(stack_a))
 	{
 		find_sorted_numbers(stack_a);
+		reindex_list(stack_a->stack_data);
 		clean_stack(stack_a, stack_b);
 		reindex_list(stack_a->stack_data);
 		reindex_list(stack_b->stack_data);
 		push_and_sort(stack_a, stack_b);
+		
+		
 	}
 }
