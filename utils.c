@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:34:37 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/16 17:22:40 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/19 12:09:45 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,31 @@ void	reindex_list(t_list *list)
 			break ;
 		index++;
 	}
+}
+
+t_list *get_closest_node(t_list *list, int size)
+{
+	t_list *closer;
+	t_list *tmp;
+	int top = list->list_data;
+	closer = NULL;
+
+	tmp = list;
+	reindex_list(tmp);
+	while(1)
+	{
+		if(tmp->is_longest == 1 && !closer)
+			closer = tmp;
+		if(tmp->is_longest == 1)
+		{
+			if(tmp->less_than >= size / 2 && (size - tmp->less_than) < closer->less_than)
+			closer = tmp;
+		}
+		tmp = tmp->next;
+		if(tmp->list_data == top)
+			break;
+	}
+	return closer;
 }
 
 void	index_by_sort(t_list *list, int size)

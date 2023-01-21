@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:21:28 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/16 17:42:28 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/18 18:37:24 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,11 @@ void	rotate_stack(t_stack *stack)
 
 void	rotate_both_stacks(t_stack *a, t_stack *b)
 {
-	rotate_stack(a);
-	rotate_stack(b);
+	a->top = a->stack_data->next;
+	a->stack_data = a->top;
+	
+	b->top = b->stack_data->next;
+	b->stack_data = b->top;
 	write(1, "rr\n", 3);
 }
 
@@ -94,7 +97,10 @@ void	reverse_rotate_stack(t_stack *stack)
 
 void	reverse_rotate_both_stacks(t_stack *a, t_stack *b)
 {
-	reverse_rotate_stack(a);
-	reverse_rotate_stack(b);
+	a->top = a->stack_data->prev;
+	a->stack_data = a->top;
+
+	b->top = b->stack_data->prev;
+	b->stack_data = b->top;
 	write(1, "rrr\n", 4);
 }

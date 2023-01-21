@@ -6,12 +6,33 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 09:08:56 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/16 16:07:46 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/18 18:40:05 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "libft.h"
+
+
+void print_list(t_list *list)
+{
+	int top;
+	t_list *tmp;
+
+	if(list)
+	{
+		top = list->list_data;
+		tmp = list;
+		while(tmp)
+		{
+			printf("value: %d -- index: %d -- less: %d -- isl: %d\n", tmp->list_data, tmp->index, tmp->less_than, tmp->is_longest);
+			tmp = tmp->next;
+			if(tmp->list_data == top)
+				break;
+		}
+	}
+	
+}
 
 int	main(int ac, char **av)
 {
@@ -42,6 +63,13 @@ int	main(int ac, char **av)
 			else
 				sort_algo(&a, &b);
 		}
+
+		// printf("--------------\n");
+		// print_list(a.stack_data);
+		// printf("--------------\n");
+		// print_list(b.stack_data);
+
+		
 	}
 	return (0);
 }
