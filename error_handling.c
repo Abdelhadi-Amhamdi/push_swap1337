@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 14:05:51 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/16 16:30:11 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/22 01:00:40 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,33 @@ char	*join_all_args(char **av, int ac)
 {
 	int		index ;
 	char	*data ;
+	int j;
 
 	index = 1;
 	data = ft_calloc(sizeof(char), 1);
 	while (index < ac)
 	{
+		j = 0;
+		if(!av[index][0])
+		{
+			printf("Error\n");
+			return 0;
+		}
+		while (av[index][j] != '\0')
+		{
+			if (!ft_isdigit(av[index][j]) && (av[index][j] != '-' && av[index][j] != ' '))
+			{
+				// free_all(tabs);
+				printf("Error\n");
+				return (0);
+			}
+			if(av[index][j] == '-' && (!av[index][j+1] || av[index][j+1] == ' '))
+			{
+				printf("Error\n");
+				return 0;
+			}
+			j++;
+		}
 		data = ft_strjoin(data, av[index]);
 		index++;
 	}
@@ -41,7 +63,7 @@ size_t	ft_lenght(char **tabs)
 int	*filter_args(char **tabs, size_t size)
 {
 	int	index;
-	int	j;
+	// int	j;
 	int	*data;
 	int	num;
 
@@ -51,17 +73,17 @@ int	*filter_args(char **tabs, size_t size)
 		return (NULL);
 	while (tabs[index])
 	{
-		j = 0;
-		while (tabs[index][j] != '\0')
-		{
-			if (!ft_isdigit(tabs[index][j]) && tabs[index][j] != '-')
-			{
-				// free_all(tabs);
-				printf("Error\n");
-				return (NULL);
-			}
-			j++;
-		}
+		// j = 0;
+		// while (tabs[index][j] != '\0')
+		// {
+		// 	if (!ft_isdigit(tabs[index][j]) && tabs[index][j] != '-')
+		// 	{
+		// 		// free_all(tabs);
+		// 		printf("Error\n");
+		// 		return (NULL);
+		// 	}
+		// 	j++;
+		// }
 		num = ft_atoi(tabs[index]);
 		if (num >= 2147483647 || num <= -2147483648)
 		{

@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 09:08:56 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/18 18:40:05 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/22 00:34:07 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	main(int ac, char **av)
 	if (ac > 1)
 	{
 		args_data = join_all_args(av, ac);
+		if(!args_data)
+			return 0;
 		tabs = ft_split(args_data, ' ');
 		free(args_data);
 		size = ft_lenght(tabs);
@@ -62,14 +64,7 @@ int	main(int ac, char **av)
 				sort_five(&a, &b);
 			else
 				sort_algo(&a, &b);
-		}
-
-		// printf("--------------\n");
-		// print_list(a.stack_data);
-		// printf("--------------\n");
-		// print_list(b.stack_data);
-
-		
+		}	
 	}
 	return (0);
 }
