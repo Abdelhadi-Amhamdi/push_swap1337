@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:24:19 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/18 14:19:15 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/22 21:09:46 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ t_list	*get_min(t_list *list);
 t_list	*get_last_node(t_list *list);
 t_list	*get_next_min(t_list *list, t_list *fmin);
 void	print_list(t_list *list);
-t_list *get_closest_node(t_list *list, int size);
+t_list	*get_closest_node(t_list *list, int size);
+void	ft_calc(int *a, int *b, int sa, int sb);
+int		max(int a, int b);
+int		check_sign(char *str);
 
 // sorting
 void	move_min_to_top(t_stack *stack);
@@ -54,11 +57,12 @@ void	move_node_to_top(t_stack *stack, t_list *item);
 void	sort_five(t_stack *stack_a, t_stack *stack_b);
 void	sort_three(t_stack *a);
 void	sort_algo(t_stack *stack_a, t_stack *stack_b);
-int		find_sorted_numbers(t_list *list, int s);
+void	find_sorted_numbers(t_list *list, int s);
 void	calc_moves(t_stack *a, t_stack *b);
 void	push_and_sort(t_stack *a, t_stack *b);
-void	clean_stack(t_stack *a, t_stack *b);
+void	clean_stack_a(t_stack *a, t_stack *b);
 int		check_sort(t_stack *stack);
+void	mark_sorted_numbers(t_list *list);
 
 // stack
 t_list	*creat_node(int data);
