@@ -6,13 +6,13 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 15:55:56 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/22 15:56:10 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/22 21:09:06 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void sort_three(t_stack *a)
+void	sort_three(t_stack *a)
 {
 	if (a->top->list_data > a->top->next->list_data)
 		swap_stack(a);
