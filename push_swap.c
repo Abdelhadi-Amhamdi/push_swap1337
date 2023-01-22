@@ -6,14 +6,14 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 09:08:56 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/22 16:22:10 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/22 20:52:18 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "libft.h"
+#include "libft/libft.h"
 
-int	*parsing(char **av, int ac, int *size)
+int	*parsing(char **av, int ac, size_t *size)
 {
 	char	*args_data;
 	char	**tabs;
