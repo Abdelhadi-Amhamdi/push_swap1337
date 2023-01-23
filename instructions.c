@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:21:28 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/22 21:12:12 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/23 13:11:37 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,15 @@ void	push_in_stack(t_stack *from, t_stack *to)
 	write(1, "p", 1);
 	write(1, &to->name, 1);
 	write(1, "\n", 1);
+}
+
+void	make_list_circular(t_stack *a)
+{
+	t_list	*last;
+
+	if (!a->stack_data)
+		return ;
+	last = get_last_node(a->stack_data);
+	last->next = a->top;
+	a->top->prev = last;
 }

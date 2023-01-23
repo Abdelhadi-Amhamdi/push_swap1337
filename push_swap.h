@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:24:19 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/22 21:09:46 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:44:29 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,20 @@ typedef struct s_stack
 
 // utils
 void	index_by_sort(t_list *list, int size);
-int		get_max_index(int *tab);
 t_list	*get_min_moves(t_list *list);
 int		ft_search(t_list *list, int index);
 t_list	*get_item(t_list *list, int index);
 void	reindex_list(t_list *list);
 void	make_list_circular(t_stack *a);
 void	make_list_not_circular(t_stack *a);
-t_list	*get_max(t_list *list, int top);
+t_list	*get_max_index(t_list *list, int top);
 t_list	*get_min(t_list *list);
 t_list	*get_last_node(t_list *list);
 t_list	*get_next_min(t_list *list, t_list *fmin);
 void	print_list(t_list *list);
 t_list	*get_closest_node(t_list *list, int size);
-void	ft_calc(int *a, int *b, int sa, int sb);
+void	calc_exact_mouves(int *a, int *b, int sa, int sb);
+int		ft_calc(int a, int b, int sa, int sb);
 int		max(int a, int b);
 int		check_sign(char *str);
 
@@ -58,11 +58,13 @@ void	sort_five(t_stack *stack_a, t_stack *stack_b);
 void	sort_three(t_stack *a);
 void	sort_algo(t_stack *stack_a, t_stack *stack_b);
 void	find_sorted_numbers(t_list *list, int s);
-void	calc_moves(t_stack *a, t_stack *b);
-void	push_and_sort(t_stack *a, t_stack *b);
+void	ft_calc_mouves(t_stack *a, t_stack *b);
 void	clean_stack_a(t_stack *a, t_stack *b);
 int		check_sort(t_stack *stack);
 void	mark_sorted_numbers(t_list *list);
+void	ft_push_and_sort(t_stack *a, t_stack *b);
+void	reindex_both_stacks(t_stack *a, t_stack *b);
+int		check_mouves_match(t_list *item1, int m, t_stack *a, t_stack *b);
 
 // stack
 t_list	*creat_node(int data);
@@ -84,5 +86,6 @@ int		*filter_args(char **av, size_t size);
 size_t	ft_lenght(char **tabs);
 char	*join_all_args(char **av, int ac);
 int		check_deplucate(int *data, int num, int len);
+void	ft_free(void *data);
 
 #endif

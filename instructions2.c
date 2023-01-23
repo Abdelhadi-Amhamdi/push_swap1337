@@ -6,9 +6,11 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 21:11:35 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/22 21:12:24 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/23 13:11:40 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "push_swap.h"
 
 void	rotate_stack(t_stack *stack)
 {
@@ -44,4 +46,12 @@ void	reverse_rotate_both_stacks(t_stack *a, t_stack *b)
 	b->top = b->stack_data->prev;
 	b->stack_data = b->top;
 	write(1, "rrr\n", 4);
+}
+
+void	make_list_not_circular(t_stack *a)
+{
+	if (!a->stack_data)
+		return ;
+	a->top->prev->next = NULL;
+	a->top->prev = NULL;
 }

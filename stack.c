@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 09:10:08 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/16 16:34:00 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/23 13:12:50 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	init_stack(size_t len, int *data, t_stack *a_stack, t_stack *b_stack)
 {
-	a_stack->size = 0;
 	b_stack->size = 0;
+	a_stack->size = (int)len;
 	a_stack->name = 'a';
 	b_stack->name = 'b';
 	b_stack->stack_data = NULL;
@@ -25,36 +25,41 @@ int	init_stack(size_t len, int *data, t_stack *a_stack, t_stack *b_stack)
 	return (1);
 }
 
+void	free_list(t_list *list)
+{
+	t_list	*tmp;
+	t_list	*next;
+
+	tmp = list;
+	while (tmp)
+	{
+		next = tmp->next;
+		free(tmp);
+		tmp = next;
+	}
+}
+
 int	fill_stack(size_t len, int *data, t_stack *stack)
 {
-	size_t	index;
 	t_list	*my_list;
 	t_list	*node;
 
-	index = 0;
 	my_list = NULL;
-	stack->size = (int)len;
-	len--;
-	while (index <= len)
+	while (len--)
 	{
-		node = NULL;
 		if (!my_list)
 		{
-			if (!(my_list = creat_node(data[len - index])))
+			my_list = creat_node(data[len]);
+			if (!my_list)
 				return (0);
-			my_list->less_than = (len - index);
 		}
 		else
 		{
-			if (!(node = creat_node(data[len - index])))
-			{
-				// free_all();
-				return (0);
-			}
-			node->less_than = (len - index);
+			node = creat_node(data[len]);
+			if (!node)
+				return (free_list(my_list), 0);
 			insert_node(&my_list, node);
 		}
-		index++;
 	}
 	stack->stack_data = my_list;
 	stack->top = my_list;
@@ -66,7 +71,8 @@ t_list	*creat_node(int data)
 {
 	t_list	*node;
 
-	if (!(node = (t_list *)malloc(sizeof(t_list))))
+	node = (t_list *)malloc(sizeof(t_list));
+	if (!node)
 		return (NULL);
 	node->list_data = data;
 	node->index = 0;
