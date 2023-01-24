@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 21:19:24 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/23 15:44:43 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/24 13:08:51 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ void	ft_push_and_sort(t_stack *a, t_stack *b)
 
 	while (1)
 	{
+		if (!b->size)
+			break ;
+		reindex_both_stacks(a, b);
 		ft_calc_mouves(a, b);
 		m_m = get_min_moves(b->stack_data);
 		item = get_next_min(a->stack_data, m_m);
@@ -78,9 +81,6 @@ void	ft_push_and_sort(t_stack *a, t_stack *b)
 		else
 			move_node_to_top(a, item);
 		push_in_stack(b, a);
-		if (!b->size)
-			break ;
-		reindex_both_stacks(a, b);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 22:41:34 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/15 14:52:50 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/24 14:19:08 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	size1;
 	size_t	size2;
 
-	if (!s1 || !s2)
-		return (0);
+	if (!s1)
+		s1 = ft_calloc(1, sizeof(char));
 	size1 = ft_strlen(s1);
 	size2 = ft_strlen(s2);
 	p = (char *)malloc((size1 + size2 + 2) * sizeof(char));

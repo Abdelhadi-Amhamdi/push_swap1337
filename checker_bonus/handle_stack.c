@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack.c                                            :+:      :+:    :+:   */
+/*   handle_stack.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/31 09:10:08 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/23 13:12:50 by aamhamdi         ###   ########.fr       */
+/*   Created: 2023/01/23 16:24:56 by aamhamdi          #+#    #+#             */
+/*   Updated: 2023/01/24 14:55:54 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
-int	init_stack(size_t len, int *data, t_stack *a_stack, t_stack *b_stack)
+int	init_stack(int len, int *data, t_stack *a_stack, t_stack *b_stack)
 {
 	b_stack->size = 0;
 	a_stack->size = (int)len;
@@ -21,7 +21,6 @@ int	init_stack(size_t len, int *data, t_stack *a_stack, t_stack *b_stack)
 	b_stack->stack_data = NULL;
 	if (!(fill_stack(len, data, a_stack)))
 		return (0);
-	index_by_sort(a_stack->stack_data, a_stack->size);
 	return (1);
 }
 
@@ -39,7 +38,7 @@ void	free_list(t_list *list)
 	}
 }
 
-int	fill_stack(size_t len, int *data, t_stack *stack)
+int	fill_stack(int len, int *data, t_stack *stack)
 {
 	t_list	*my_list;
 	t_list	*node;

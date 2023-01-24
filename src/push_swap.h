@@ -6,13 +6,14 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:24:19 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/23 15:44:29 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/24 13:51:39 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
-# include "libc.h"
+# include <unistd.h>
+# include <stdlib.h>
 
 typedef struct s_list
 {
@@ -69,8 +70,8 @@ int		check_mouves_match(t_list *item1, int m, t_stack *a, t_stack *b);
 // stack
 t_list	*creat_node(int data);
 void	insert_node(t_list **list, t_list *node);
-int		init_stack(size_t len, int *data, t_stack *a, t_stack *b);
-int		fill_stack(size_t len, int *data, t_stack *stack);
+int		init_stack(int len, int *data, t_stack *a, t_stack *b);
+int		fill_stack(int len, int *data, t_stack *stack);
 
 // instructions
 void	push_in_stack(t_stack *from, t_stack *to);
@@ -82,10 +83,10 @@ void	reverse_rotate_stack(t_stack *stack);
 void	reverse_rotate_both_stacks(t_stack *a, t_stack *b);
 
 // parsing
-int		*filter_args(char **av, size_t size);
-size_t	ft_lenght(char **tabs);
+int		*filter_args(char **av, int size);
+int		ft_lenght(char **tabs);
 char	*join_all_args(char **av, int ac);
 int		check_deplucate(int *data, int num, int len);
-void	ft_free(void *data);
+void	ft_free(void *data, char **tabs);
 
 #endif

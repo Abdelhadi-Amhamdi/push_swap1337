@@ -6,9 +6,11 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 20:27:22 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/22 20:27:42 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/23 16:17:46 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "checker.h"
 
 void	rotate_stack(t_stack *stack)
 {

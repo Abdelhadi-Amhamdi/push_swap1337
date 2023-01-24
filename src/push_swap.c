@@ -6,14 +6,14 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 09:08:56 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/22 20:52:18 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/24 14:41:28 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "libft/libft.h"
+#include "../libft/libft.h"
 
-int	*parsing(char **av, int ac, size_t *size)
+int	*parsing(char **av, int ac, int *size)
 {
 	char	*args_data;
 	char	**tabs;
@@ -22,9 +22,9 @@ int	*parsing(char **av, int ac, size_t *size)
 	if (!args_data)
 		return (0);
 	tabs = ft_split(args_data, ' ');
+	free(args_data);
 	if (!tabs)
 		return (0);
-	free(args_data);
 	*size = ft_lenght(tabs);
 	return (filter_args(tabs, *size));
 }
@@ -34,15 +34,15 @@ int	main(int ac, char **av)
 	t_stack	a;
 	t_stack	b;
 	int		*data;
-	size_t	size;
+	int		size;
 
 	if (ac > 1)
 	{
 		data = parsing(av, ac, &size);
 		if (!data)
-			return (0);
+			return (ft_putendl_fd("Error", 2), 0);
 		if (!(init_stack(size, data, &a, &b)))
-			return (0);
+			return (ft_putendl_fd("Error", 2), 0);
 		if (!check_sort(&a))
 		{
 			if (size <= 3)
