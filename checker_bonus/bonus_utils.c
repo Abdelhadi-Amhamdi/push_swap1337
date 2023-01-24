@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 16:10:27 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/24 15:23:06 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:27:04 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	check_sort(t_stack *stack)
 	while (tmp)
 	{
 		if ((tmp->list_data > tmp->next->list_data) && \
-		(tmp->next->list_data != to)p)
+		(tmp->next->list_data != top))
 			return (0);
 		tmp = tmp->next;
 		if (tmp->list_data == top)

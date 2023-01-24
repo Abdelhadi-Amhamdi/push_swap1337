@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 16:13:42 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/24 15:15:48 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:49:59 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_stack
 void	swap_stack(t_stack *stack);
 void	swap_both_stacks(t_stack *b, t_stack *a);
 void	push_in_stack(t_stack *from, t_stack *to);
+void	push(t_stack *from, t_stack *to);
 void	rotate_stack(t_stack *stack);
 void	rotate_both_stacks(t_stack *a, t_stack *b);
 void	reverse_rotate_stack(t_stack *stack);
@@ -44,8 +45,8 @@ void	reverse_rotate_both_stacks(t_stack *a, t_stack *b);
 
 // parsing
 int		*parsing(char **av, int ac, int *size);
-int		args_handler(char *line, t_stack *a, t_stack *b, size_t len);
-void	exec_instructions(t_stack *a, t_stack *b);
+int		args_handler(char *line, t_stack *a, t_stack *b);
+int		exec_instructions(t_stack *a, t_stack *b);
 int		*filter_args(char **tabs, int size);
 char	*join_all_args(char **av, int ac);
 void	ft_free(void *data, char **tabs);
