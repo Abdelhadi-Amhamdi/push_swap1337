@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 14:05:51 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/24 14:35:29 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/24 18:59:27 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,7 @@ char	*join_all_args(char **av, int ac)
 			return (NULL);
 		while (av[i][j] != '\0')
 		{
-			if ((!ft_isdigit(av[i][j]) && av[i][j] != '-') && (av[i][j] != ' '))
-				return (NULL);
-			if (av[i][j] == '-' && \
-			(!av[i][j + 1] || av[i][j + 1] == ' '))
+			if (!check_valid_data(av[i][j], av[i][j +1]))
 				return (NULL);
 			j++;
 		}

@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 16:13:42 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/24 17:49:59 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/24 18:58:27 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ char	*join_all_args(char **av, int ac);
 void	ft_free(void *data, char **tabs);
 int		check_empty_arg(char *str);
 int		check_deplucate(int *data, int num, int len);
+int		ft_is_white_space(char c);
+int		check_valid_data(char c, char n);
 
 // utils
 t_list	*get_last_node(t_list *list);

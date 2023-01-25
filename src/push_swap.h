@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:24:19 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/24 13:51:39 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/24 18:54:42 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ int		ft_lenght(char **tabs);
 char	*join_all_args(char **av, int ac);
 int		check_deplucate(int *data, int num, int len);
 void	ft_free(void *data, char **tabs);
+int		check_valid_data(char c, char n);
 
 #endif

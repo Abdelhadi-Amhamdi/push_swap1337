@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 21:38:51 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/24 17:49:34 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/25 12:27:34 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	push(t_stack *from, t_stack *to)
 
 void	push_in_stack(t_stack *from, t_stack *to)
 {
-	if (!from->stack_data || !to->stack_data)
+	if (!from->stack_data)
 		return ;
 	make_list_not_circular(to);
 	make_list_not_circular(from);
@@ -68,4 +68,12 @@ void	push_in_stack(t_stack *from, t_stack *to)
 		from->stack_data = NULL;
 	make_list_circular(to);
 	make_list_circular(from);
+}
+
+void	rotate_stack(t_stack *stack)
+{
+	if (!stack->stack_data)
+		return ;
+	stack->top = stack->stack_data->next;
+	stack->stack_data = stack->top;
 }

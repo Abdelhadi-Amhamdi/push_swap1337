@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 18:41:43 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/24 17:54:14 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/25 12:28:14 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	exec_instructions(t_stack *a, t_stack *b)
 			return (0);
 		}
 		free(line);
+		line = NULL;
 		line = get_next_line(0);
 	}
 	return (1);
