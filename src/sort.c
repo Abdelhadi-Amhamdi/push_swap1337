@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 10:21:32 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/23 15:46:42 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/25 17:32:13 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void	find_sorted_numbers(t_list *list, int s)
 		while (1)
 		{
 			ptr = ptr->next;
-			if (ptr->list_data > tmp->list_data)
-				tmp->less_than++;
 			if (ptr->list_data == min_node->list_data)
 				break ;
+			if (ptr->list_data > tmp->list_data)
+				tmp->less_than++;
 		}
 	}
 	mark_sorted_numbers(list);

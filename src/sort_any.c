@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 13:17:07 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/23 15:49:26 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/25 17:29:26 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,14 @@ void	sort_algo(t_stack *stack_a, t_stack *stack_b)
 	t_list	*min;
 
 	min = get_min(stack_a->stack_data);
-	if (!check_sort(stack_a))
-	{
-		find_sorted_numbers(min, stack_a->size);
-		reindex_list(stack_a->stack_data);
-		clean_stack_a(stack_a, stack_b);
-		reindex_list(stack_a->stack_data);
-		reindex_list(stack_b->stack_data);
-		ft_push_and_sort(stack_a, stack_b);
-		stack_b->stack_data = NULL;
-		stack_b->top = NULL;
-		reindex_list(stack_a->stack_data);
-		move_min_to_top(stack_a);
-	}
+	find_sorted_numbers(min, stack_a->size);
+	reindex_list(stack_a->stack_data);
+	clean_stack_a(stack_a, stack_b);
+	reindex_list(stack_a->stack_data);
+	reindex_list(stack_b->stack_data);
+	ft_push_and_sort(stack_a, stack_b);
+	stack_b->stack_data = NULL;
+	stack_b->top = NULL;
+	reindex_list(stack_a->stack_data);
+	move_min_to_top(stack_a);
 }
