@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 18:41:43 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/25 12:28:14 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/25 14:38:19 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ int	main(int ac, char **av)
 			ft_putendl_fd("OK", 1);
 		else
 			ft_putendl_fd("KO", 1);
+		make_list_not_circular(&a);
+		free_list(a.stack_data);
 	}
-	return (0);
+	exit (0);
 }

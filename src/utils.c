@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:34:37 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/23 15:49:20 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/25 12:39:30 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,24 +50,6 @@ int	max(int a, int b)
 	if (a > b)
 		return (a);
 	return (b);
-}
-
-t_list	*get_item(t_list *list, int index)
-{
-	int		top;
-	t_list	*tmp;
-
-	tmp = list;
-	top = list->list_data;
-	while (1)
-	{
-		if (tmp->index > index)
-			return (tmp);
-		tmp = tmp->next;
-		if (tmp->list_data == top)
-			break ;
-	}
-	return (NULL);
 }
 
 t_list	*get_min_moves(t_list *list)

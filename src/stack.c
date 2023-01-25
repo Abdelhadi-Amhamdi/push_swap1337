@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 09:10:08 by aamhamdi          #+#    #+#             */
-/*   Updated: 2023/01/24 13:42:16 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/25 14:36:45 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ int	init_stack(int len, int *data, t_stack *a_stack, t_stack *b_stack)
 	b_stack->name = 'b';
 	b_stack->stack_data = NULL;
 	if (!(fill_stack(len, data, a_stack)))
+	{
+		free(data);
 		return (0);
+	}
 	index_by_sort(a_stack->stack_data, a_stack->size);
 	return (1);
 }

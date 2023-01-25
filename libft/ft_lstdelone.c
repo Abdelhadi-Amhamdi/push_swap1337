@@ -6,7 +6,7 @@
 /*   By: aamhamdi <aamhamdi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 12:55:29 by aamhamdi          #+#    #+#             */
-/*   Updated: 2022/10/21 14:35:02 by aamhamdi         ###   ########.fr       */
+/*   Updated: 2023/01/25 13:34:29 by aamhamdi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
 	if (lst && del)
 	{
-		del(lst->content);
+		del(lst->data);
 		free(lst);
 	}
 }
